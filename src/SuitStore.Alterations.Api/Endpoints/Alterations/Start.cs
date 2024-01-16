@@ -10,16 +10,18 @@ namespace SuitStore.Alterations.Api.Endpoints.Alterations;
 [ApiVersion("1")]
 [Route("v{version:apiVersion}/alterations")]
 [Produces("application/json")]
-public class Start(IPublishEndpoint publishEndpoint) : ControllerBase
+public class Start(IRequestClient<StartAlteration> requestClient) : ControllerBase
 {
     [HttpPost("{alterationId}/start")]
     public async Task<ActionResult> Execute(Guid alterationId, [FromBody] StartAlterationRequest request, CancellationToken cancellationToken)
     {
         // Validate if tailor exists
         
-        // TOOD: return not found if no alteration with Id found
-        await publishEndpoint.Publish(new AlterationStarted(alterationId, request.TailorId), cancellationToken);
+        var result = await requestClient.GetResponse<AlterationStarted, AlterationNotFound>(new StartAlteration(alterationId, request.TailorId), cancellationToken);
 
+        if (result.Message is AlterationNotFound)
+            return NotFound();
+        
         return Ok();
     }
 }

@@ -39,8 +39,8 @@ public class AlterationStateMachine : MassTransitStateMachine<AlterationSaga>
     
     public Event<CreateAlteration> Create { get; set; } = null!;
     public Event<OrderPaid> OrderPaid { get; set; } = null!;
-    public Event<AlterationStarted> AlterationStarted { get; set; } = null!;
-    public Event<AlterationFinished> AlterationFinished { get; set; } = null!;
+    public Event<StartAlteration> AlterationStarted { get; set; } = null!;
+    public Event<FinishAlteration> AlterationFinished { get; set; } = null!;
     
     private void ConfigureSaga()
     {
@@ -83,6 +83,7 @@ public class AlterationStateMachine : MassTransitStateMachine<AlterationSaga>
         Event(() => AlterationFinished, e =>
         {
             e.CorrelateBy((a, b) => a.AlterationId == b.Message.AlterationId);
+            e.OnMissingInstance(configurator => configurator.ExecuteAsync(context => context.RespondAsync(new AlterationNotFound())));
         });
     }
 
