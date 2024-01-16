@@ -22,12 +22,12 @@ public class AlterationStateMachine : MassTransitStateMachine<AlterationSaga>
                 .TransitionTo(ReadyToStart));
         
         During(ReadyToStart,
-            When(AlterationStarted)
+            When(StartAlteration)
                 .Then(a => a.Saga.TailorId = a.Message.TailorId)
                 .TransitionTo(InProgress));
         
         During(InProgress,
-            When(AlterationFinished)
+            When(FinishAlteration)
                 .Send(a => new SendEmail(a.Saga.ClientId, EmailType.AlterationsFinished))
                 .TransitionTo(Completed));
     }
@@ -39,8 +39,8 @@ public class AlterationStateMachine : MassTransitStateMachine<AlterationSaga>
     
     public Event<CreateAlteration> Create { get; set; } = null!;
     public Event<OrderPaid> OrderPaid { get; set; } = null!;
-    public Event<StartAlteration> AlterationStarted { get; set; } = null!;
-    public Event<FinishAlteration> AlterationFinished { get; set; } = null!;
+    public Event<StartAlteration> StartAlteration { get; set; } = null!;
+    public Event<FinishAlteration> FinishAlteration { get; set; } = null!;
     
     private void ConfigureSaga()
     {
@@ -76,11 +76,12 @@ public class AlterationStateMachine : MassTransitStateMachine<AlterationSaga>
             e.CorrelateBy((a, b) => a.OrderId == b.Message.OrderId);
             e.OnMissingInstance(configurator => configurator.Discard());
         });
-        Event(() => AlterationStarted, e =>
+        Event(() => StartAlteration, e =>
         {
             e.CorrelateBy((a, b) => a.AlterationId == b.Message.AlterationId);
+            e.OnMissingInstance(configurator => configurator.ExecuteAsync(context => context.RespondAsync(new AlterationNotFound())));
         });
-        Event(() => AlterationFinished, e =>
+        Event(() => FinishAlteration, e =>
         {
             e.CorrelateBy((a, b) => a.AlterationId == b.Message.AlterationId);
             e.OnMissingInstance(configurator => configurator.ExecuteAsync(context => context.RespondAsync(new AlterationNotFound())));
@@ -89,7 +90,7 @@ public class AlterationStateMachine : MassTransitStateMachine<AlterationSaga>
 
     private long StartNewOrder()
     {
-        // Assuming we have some kind of a Order/Payment client we use it here to initiate a new order to be paid and retrieve the ID to be associated with the order
+        // Assuming we have some kind of a Order/Payment client we use it here to initiate a new order to be paid and retrieve the ID to be associated with the alteration
         var rnd = new Random();
         return rnd.NextInt64(long.MaxValue);
     }
