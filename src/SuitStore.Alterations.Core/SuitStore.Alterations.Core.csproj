@@ -12,6 +12,7 @@
     </ItemGroup>
 
     <ItemGroup>
+      <ProjectReference Include="..\SuitStore.Email.Messaging\SuitStore.Email.Messaging.csproj" />
       <ProjectReference Include="..\SuitStore.Payments.Messaging\SuitStore.Payments.Messaging.csproj" />
     </ItemGroup>
 

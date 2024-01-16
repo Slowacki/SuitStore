@@ -1,5 +1,7 @@
 ﻿using MassTransit;
 using SuitStore.Alterations.Core.Messages;
+using SuitStore.Email.Messaging.Commands;
+using SuitStore.Email.Messaging.Models;
 using SuitStore.Payments.Messaging.Events;
 
 namespace SuitStore.Alterations.Core.Saga;
@@ -24,7 +26,7 @@ public class AlterationStateMachine : MassTransitStateMachine<AlterationSaga>
         
         During(InProgress,
             When(AlterationFinished)
-                // Send Email
+                .Send(a => new SendEmail(a.Saga.ClientId, EmailType.AlterationsFinished))
                 .TransitionTo(Completed));
     }
     
@@ -62,7 +64,8 @@ public class AlterationStateMachine : MassTransitStateMachine<AlterationSaga>
                     CreatedAtDateUtc = DateTime.UtcNow,
                     AlterationId = id,
                     AlterationInstructions = message.Instructions,
-                    ClientId = message.ClientId
+                    ClientId = message.ClientId,
+                    ProductId = message.ProductId
                 };
             });
         });
