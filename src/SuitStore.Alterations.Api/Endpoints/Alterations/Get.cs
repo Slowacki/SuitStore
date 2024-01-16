@@ -4,7 +4,6 @@ using Microsoft.AspNetCore.Mvc;
 using SuitStore.Alterations.Api.Requests;
 using SuitStore.Alterations.Core.Contracts;
 using SuitStore.Alterations.Core.Models;
-using SuitStore.Alterations.Core.Saga;
 
 namespace SuitStore.Alterations.Api.Endpoints.Alterations;
 

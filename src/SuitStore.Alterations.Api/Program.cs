@@ -20,7 +20,9 @@ public class Program
         services.AddEndpointsApiExplorer();
         services.AddSwaggerGen();
 
-        services.AddAlterationsCore();
+        services.AddAlterationsCore(
+            mongoOptions => configuration.Bind("MongoDb", mongoOptions),
+            massTransitOptions => configuration.Bind("MassTransit", massTransitOptions));
         services.AddMongoDb(options => configuration.Bind("MongoDb", options));
         
         services.AddApiVersioning(options =>
