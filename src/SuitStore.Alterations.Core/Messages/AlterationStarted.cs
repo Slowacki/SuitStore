@@ -1,3 +1,3 @@
 ﻿namespace SuitStore.Alterations.Core.Messages;
 
-public record AlterationStarted(Guid AlterationId);
+public record AlterationStarted();

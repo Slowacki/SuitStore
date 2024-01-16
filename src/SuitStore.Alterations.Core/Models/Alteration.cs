@@ -7,7 +7,7 @@ public class Alteration
     public long ClientId { get; set; }
     public long ProductId { get; set; }
     public long? TailorId { get; set; }
-    public AlterationInstructions AlterationInstructions { get; set; } = default!;
+    public IEnumerable<AlterationInstruction> AlterationInstructions { get; set; } = default!;
     public DateTime CreatedAtDateUtc { get; set; }
     public DateTime? CompletedAtDateUtc { get; set; }
     public string CurrentState { get; set; } = default!;

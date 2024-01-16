@@ -22,7 +22,8 @@ public class GetByTailorIdTests : IDisposable
     [Fact(DisplayName = "Execute returns only the alterations that the provided tailor is working on")]
     public async Task Execute_ReturnsFilteredAlterations_WhenTailorIdProvided()
     {
-        var tailorId = _fixture.Create<long>();
+        var rnd = new Random();
+        var tailorId = rnd.NextInt64(long.MaxValue);
         var alterationWithTailorId = _fixture.Create<Guid>();
 
         var alterationsToBeInserted = new List<AlterationSaga>()

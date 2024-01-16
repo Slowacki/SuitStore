@@ -2,4 +2,4 @@
 
 namespace SuitStore.Alterations.Core.Messages;
 
-public record CreateAlteration(long ClientId, long ProductId, AlterationInstructions Instructions);
+public record CreateAlteration(long ClientId, long ProductId, IEnumerable<AlterationInstruction> Instructions);

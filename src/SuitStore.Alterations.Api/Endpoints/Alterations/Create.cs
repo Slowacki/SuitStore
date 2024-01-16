@@ -26,10 +26,10 @@ public class Create(IRequestClient<CreateAlteration> requestClient) : Controller
     [ProducesResponseType((int)HttpStatusCode.BadRequest)]
     public async Task<ActionResult> Execute(long clientId, [FromBody] CreateAlterationRequest alterationRequest, CancellationToken cancellationToken)
     {
-        if (alterationRequest.AlterationInstructions.AlterationInstruction.Any(a => a.ChangeInCm is > 5 or < -5))
+        if (alterationRequest.AlterationInstructions.Any(a => a.ChangeInCm is > 5 or < -5))
             return BadRequest("Cannot alter length by more than 5 cm.");
         
-        if (alterationRequest.AlterationInstructions.AlterationInstruction.DistinctBy(a => a.Type).Count() != alterationRequest.AlterationInstructions.AlterationInstruction.Count())
+        if (alterationRequest.AlterationInstructions.DistinctBy(a => a.Type).Count() != alterationRequest.AlterationInstructions.Count())
             return BadRequest("Invalid alteration instructions.");
 
         // Validate client and product exist

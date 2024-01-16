@@ -28,15 +28,24 @@ public class AlterationStateMachine : MassTransitStateMachine<AlterationSaga>
         During(ReadyToStart,
             When(StartAlteration)
                 .Then(a => a.Saga.TailorId = a.Message.TailorId)
+                .Respond(new AlterationStarted())
                 .TransitionTo(InProgress),
             When(FinishAlteration).Respond(new TransitionNotAllowed()),
             Ignore(OrderPaid));
         
         During(InProgress,
             When(FinishAlteration)
-                .Send(a => new SendEmail(a.Saga.ClientId, EmailType.AlterationsFinished))
+                // Send a message to send email, no queue present atm 
+                //.Send(a => new SendEmail(a.Saga.ClientId, EmailType.AlterationsFinished))
+                .Then(b => b.Saga.CompletedAtDateUtc = DateTime.UtcNow)
+                .Respond(new AlterationFinished())
                 .TransitionTo(Completed),
             When(StartAlteration).Respond(new TransitionNotAllowed()),
+            Ignore(OrderPaid));
+        
+        During(Completed,
+            When(StartAlteration).Respond(new TransitionNotAllowed()),
+            When(FinishAlteration).Respond(new TransitionNotAllowed()),
             Ignore(OrderPaid));
     }
     

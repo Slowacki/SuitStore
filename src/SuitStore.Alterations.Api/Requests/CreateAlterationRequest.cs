@@ -2,4 +2,4 @@
 
 namespace SuitStore.Alterations.Api.Requests;
 
-public record CreateAlterationRequest(AlterationInstructions AlterationInstructions, long ProductId);
+public record CreateAlterationRequest(IEnumerable<AlterationInstruction> AlterationInstructions, long ProductId);
