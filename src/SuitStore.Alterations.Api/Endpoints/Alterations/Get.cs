@@ -22,7 +22,7 @@ public class Get(IAlterationsStore alterationsStore) : ControllerBase
     /// <returns>List of alterations</returns>
     [HttpGet]
     [ProducesResponseType(typeof(IEnumerable<Alteration>), (int)HttpStatusCode.OK)]
-    public async Task<ActionResult> Execute([FromBody] GetAlterationsRequest request, CancellationToken cancellationToken)
+    public async Task<ActionResult> Execute([FromQuery] GetAlterationsRequest request, CancellationToken cancellationToken)
     {
         var alterations = await alterationsStore.GetAsync(request.TailorId, request.State, cancellationToken);
 
