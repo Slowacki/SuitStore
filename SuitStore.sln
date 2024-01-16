@@ -20,6 +20,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Email", "Email", "{BF08787D
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SuitStore.Email.Messaging", "src\SuitStore.Email.Messaging\SuitStore.Email.Messaging.csproj", "{9FE4EC5C-DDF7-4BFF-8FB9-2678A0745DB5}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "component", "component", "{63473618-AF30-4C77-A234-C48604C62FFB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SuitStore.Alterations.Test", "test\SuitStore.Alterations.Test\SuitStore.Alterations.Test.csproj", "{7E21F795-5A50-40F1-B5F5-D9D47183A6C5}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -34,6 +38,8 @@ Global
 		{8047818F-25D8-4924-B2D9-4AEBC7FF9589} = {B2E3525F-A836-4916-99AE-4234C2DFE91D}
 		{BF08787D-A9C2-45C2-91DB-149483D10F87} = {787919FC-AF5D-43A7-A311-F10961CC4001}
 		{9FE4EC5C-DDF7-4BFF-8FB9-2678A0745DB5} = {BF08787D-A9C2-45C2-91DB-149483D10F87}
+		{63473618-AF30-4C77-A234-C48604C62FFB} = {0502709C-CD29-48C5-ABBA-DD9FE44E9C38}
+		{7E21F795-5A50-40F1-B5F5-D9D47183A6C5} = {63473618-AF30-4C77-A234-C48604C62FFB}
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{3C4F3557-A40C-408A-A9F2-4C8601B85E5A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
@@ -56,5 +62,9 @@ Global
 		{9FE4EC5C-DDF7-4BFF-8FB9-2678A0745DB5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9FE4EC5C-DDF7-4BFF-8FB9-2678A0745DB5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9FE4EC5C-DDF7-4BFF-8FB9-2678A0745DB5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7E21F795-5A50-40F1-B5F5-D9D47183A6C5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7E21F795-5A50-40F1-B5F5-D9D47183A6C5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7E21F795-5A50-40F1-B5F5-D9D47183A6C5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7E21F795-5A50-40F1-B5F5-D9D47183A6C5}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
