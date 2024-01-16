@@ -11,6 +11,8 @@ public class AlterationStateMachine : MassTransitStateMachine<AlterationSaga>
 {
     public AlterationStateMachine()
     {
+        ConfigureSaga();
+        
         Initially(
             When(Create)
                 .Then(a => a.Saga.OrderId = StartNewOrder())

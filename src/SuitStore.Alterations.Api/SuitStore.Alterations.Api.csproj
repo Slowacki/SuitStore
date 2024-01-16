@@ -15,6 +15,7 @@
 
     <ItemGroup>
       <ProjectReference Include="..\SuitStore.Alterations.Core\SuitStore.Alterations.Core.csproj" />
+      <ProjectReference Include="..\SuitStore.Alterations.Data\SuitStore.Alterations.Data.csproj" />
     </ItemGroup>
 
 </Project>

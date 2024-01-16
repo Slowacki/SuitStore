@@ -10,14 +10,28 @@ public static class ServiceCollectionExtensions
     {
         services.AddMassTransit(bus =>
         {
+            bus.AddSagaStateMachine<AlterationStateMachine, AlterationSaga>()
+                .MongoDbRepository(r =>
+                {
+                    r.Connection = "mongodb://localhost:27017";
+                    r.DatabaseName = "alterations";
+                    r.CollectionName = "alteration";
+                });
+            
             bus.UsingRabbitMq((context, cfg) =>
             {
-                cfg.ReceiveEndpoint("alteration-saga", e =>
+                cfg.Host("localhost", "/", h =>
                 {
-                    e.UseMessageRetry(r => r.Incremental(3, TimeSpan.FromSeconds(1), TimeSpan.FromSeconds(1)));
-                    
-                    e.ConfigureSaga<AlterationSaga>(context);
+                    h.Username("guest");
+                    h.Password("guest");
                 });
+                
+                // cfg.ReceiveEndpoint("alteration-saga", e =>
+                // {
+                //     e.UseMessageRetry(r => r.Incremental(3, TimeSpan.FromSeconds(1), TimeSpan.FromSeconds(1)));
+                //     
+                //     e.configures
+                // });
 
                 cfg.ConfigureEndpoints(context);
             });
