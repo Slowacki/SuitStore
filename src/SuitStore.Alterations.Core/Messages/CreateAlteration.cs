@@ -1,3 +1,5 @@
-﻿namespace SuitStore.Alterations.Core.Messages;
+﻿using SuitStore.Alterations.Core.Models;
 
-public record CreateAlteration();
+namespace SuitStore.Alterations.Core.Messages;
+
+public record CreateAlteration(long ClientId, AlterationInstructions Instructions);

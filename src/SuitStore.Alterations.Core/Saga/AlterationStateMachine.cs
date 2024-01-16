@@ -1,6 +1,5 @@
 ﻿using MassTransit;
 using SuitStore.Alterations.Core.Messages;
-using SuitStore.Alterations.Core.Models;
 using SuitStore.Payments.Messaging.Events;
 
 namespace SuitStore.Alterations.Core.Saga;
@@ -11,7 +10,7 @@ public class AlterationStateMachine : MassTransitStateMachine<AlterationSaga>
     {
         Initially(
             When(Create)
-                // Create new order
+                .Then(a => a.Saga.OrderId = StartNewOrder())
                 .TransitionTo(AwaitingPayment));
         
         During(AwaitingPayment,
@@ -20,6 +19,7 @@ public class AlterationStateMachine : MassTransitStateMachine<AlterationSaga>
         
         During(ReadyToStart,
             When(AlterationStarted)
+                .Then(a => a.Saga.TailorId = a.Message.TailorId)
                 .TransitionTo(InProgress));
         
         During(InProgress,
@@ -61,7 +61,8 @@ public class AlterationStateMachine : MassTransitStateMachine<AlterationSaga>
                     CorrelationId = id,
                     CreatedAtDateUtc = DateTime.UtcNow,
                     AlterationId = id,
-                    AlterationInstructions = new AlterationInstructions(1,1)
+                    AlterationInstructions = message.Instructions,
+                    ClientId = message.ClientId
                 };
             });
         });
@@ -78,5 +79,12 @@ public class AlterationStateMachine : MassTransitStateMachine<AlterationSaga>
         {
             e.CorrelateBy((a, b) => a.AlterationId == b.Message.AlterationId);
         });
+    }
+
+    private long StartNewOrder()
+    {
+        // Assuming we have some kind of a Order/Payment client we use it here to initiate a new order to be paid and retrieve the ID to be associated with the order
+        var rnd = new Random();
+        return rnd.NextInt64(long.MaxValue);
     }
 }

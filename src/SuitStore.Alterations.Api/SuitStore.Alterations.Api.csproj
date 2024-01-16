@@ -13,4 +13,8 @@
         <PackageReference Include="Swashbuckle.AspNetCore" Version="6.4.0"/>
     </ItemGroup>
 
+    <ItemGroup>
+      <ProjectReference Include="..\SuitStore.Alterations.Core\SuitStore.Alterations.Core.csproj" />
+    </ItemGroup>
+
 </Project>

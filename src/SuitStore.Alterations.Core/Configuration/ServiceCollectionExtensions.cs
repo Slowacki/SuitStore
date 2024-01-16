@@ -2,7 +2,7 @@
 using Microsoft.Extensions.DependencyInjection;
 using SuitStore.Alterations.Core.Saga;
 
-namespace SuitStore.Alterations.Core.Extensions;
+namespace SuitStore.Alterations.Core.Configuration;
 
 public static class ServiceCollectionExtensions
 {
