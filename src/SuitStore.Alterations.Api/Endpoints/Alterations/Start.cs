@@ -28,10 +28,14 @@ public class Start(IRequestClient<StartAlteration> requestClient) : ControllerBa
     {
         // Validate if tailor exists
         
-        var result = await requestClient.GetResponse<AlterationStarted, AlterationNotFound>(new StartAlteration(alterationId, request.TailorId), cancellationToken);
+        var result = 
+            await requestClient.GetResponse<AlterationStarted,AlterationNotFound,TransitionNotAllowed>(new StartAlteration(alterationId, request.TailorId), cancellationToken);
 
         if (result.Message is AlterationNotFound)
             return NotFound();
+
+        if (result.Message is TransitionNotAllowed)
+            return BadRequest("This alteration cannot be started.");
         
         return Ok();
     }

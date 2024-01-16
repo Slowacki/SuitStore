@@ -21,17 +21,23 @@ public class AlterationStateMachine : MassTransitStateMachine<AlterationSaga>
         
         During(AwaitingPayment,
             When(OrderPaid)
-                .TransitionTo(ReadyToStart));
-        
+                .TransitionTo(ReadyToStart),
+            When(StartAlteration).Respond(new TransitionNotAllowed()),
+            When(FinishAlteration).Respond(new TransitionNotAllowed()));
+
         During(ReadyToStart,
             When(StartAlteration)
                 .Then(a => a.Saga.TailorId = a.Message.TailorId)
-                .TransitionTo(InProgress));
+                .TransitionTo(InProgress),
+            When(FinishAlteration).Respond(new TransitionNotAllowed()),
+            Ignore(OrderPaid));
         
         During(InProgress,
             When(FinishAlteration)
                 .Send(a => new SendEmail(a.Saga.ClientId, EmailType.AlterationsFinished))
-                .TransitionTo(Completed));
+                .TransitionTo(Completed),
+            When(StartAlteration).Respond(new TransitionNotAllowed()),
+            Ignore(OrderPaid));
     }
     
     public State AwaitingPayment { get; set; } = null!;

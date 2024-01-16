@@ -26,10 +26,14 @@ public class Finish(IRequestClient<FinishAlteration> requestClient) : Controller
     {
         // Validate if tailor exists
         
-        var result = await requestClient.GetResponse<AlterationFinished,AlterationNotFound>(new FinishAlteration(alterationId), cancellationToken);
+        var result = 
+            await requestClient.GetResponse<AlterationFinished,AlterationNotFound,TransitionNotAllowed>(new FinishAlteration(alterationId), cancellationToken);
 
         if (result.Message is AlterationNotFound)
             return NotFound();
+        
+        if (result.Message is TransitionNotAllowed)
+            return BadRequest("This alteration cannot be finished.");
         
         return Ok();
     }
