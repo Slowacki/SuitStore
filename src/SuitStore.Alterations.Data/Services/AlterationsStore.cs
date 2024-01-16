@@ -1,19 +1,20 @@
 ﻿using MongoDB.Driver;
 using SuitStore.Alterations.Core.Contracts;
+using SuitStore.Alterations.Core.Models;
 using SuitStore.Alterations.Core.Saga;
 
 namespace SuitStore.Alterations.Data.Services;
 
 public class AlterationsStore(IMongoCollection<AlterationSaga> alterationsCollection) : IAlterationsStore
 {
-    public async Task<IEnumerable<AlterationSaga>> GetByTailorIdAsync(long tailorId, CancellationToken cancellationToken)
+    public async Task<IEnumerable<Alteration>> GetByTailorIdAsync(long tailorId, CancellationToken cancellationToken)
     {
         var alterations = await alterationsCollection.Find(a => a.TailorId == tailorId).ToListAsync(cancellationToken);
 
         return alterations;
     }
 
-    public async Task<IEnumerable<AlterationSaga>> GetAsync(long? tailorId, string? state, CancellationToken cancellationToken)
+    public async Task<IEnumerable<Alteration>> GetAsync(long? tailorId, string? state, CancellationToken cancellationToken)
     {
         var filterBuilder = Builders<AlterationSaga>.Filter;
         var filters = new List<FilterDefinition<AlterationSaga>>();

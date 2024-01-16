@@ -1,4 +1,5 @@
-﻿using Asp.Versioning;
+﻿using System.Net;
+using Asp.Versioning;
 using MassTransit;
 using Microsoft.AspNetCore.Mvc;
 using SuitStore.Alterations.Api.Requests;
@@ -13,7 +14,16 @@ namespace SuitStore.Alterations.Api.Endpoints.Alterations;
 [Produces("application/json")]
 public class Create(IRequestClient<CreateAlteration> requestClient) : ControllerBase
 {
+    /// <summary>
+    /// Creates a new alteration
+    /// </summary>
+    /// <param name="clientId">Id of the client submitting a product to alter</param>
+    /// <param name="alterationRequest">Request containing alteration instructions and product id</param>
+    /// <param name="cancellationToken"></param>
+    /// <returns></returns>
     [HttpPost]
+    [ProducesResponseType((int)HttpStatusCode.OK)]
+    [ProducesResponseType((int)HttpStatusCode.BadRequest)]
     public async Task<ActionResult> Execute(long clientId, [FromBody] CreateAlterationRequest alterationRequest, CancellationToken cancellationToken)
     {
         if (alterationRequest.AlterationInstructions.AlterationInstruction.Any(a => a.ChangeInCm is > 5 or < -5))

@@ -1,9 +1,9 @@
-﻿using SuitStore.Alterations.Core.Saga;
+﻿using SuitStore.Alterations.Core.Models;
 
 namespace SuitStore.Alterations.Core.Contracts;
 
 public interface IAlterationsStore
 {
-    Task<IEnumerable<AlterationSaga>> GetByTailorIdAsync(long tailorId, CancellationToken cancellationToken);
-    Task<IEnumerable<AlterationSaga>> GetAsync(long? tailorId, string? state, CancellationToken cancellationToken);
+    Task<IEnumerable<Alteration>> GetByTailorIdAsync(long tailorId, CancellationToken cancellationToken);
+    Task<IEnumerable<Alteration>> GetAsync(long? tailorId, string? state, CancellationToken cancellationToken);
 }
