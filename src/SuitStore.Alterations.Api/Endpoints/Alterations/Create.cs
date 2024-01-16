@@ -3,6 +3,7 @@ using MassTransit;
 using Microsoft.AspNetCore.Mvc;
 using SuitStore.Alterations.Api.Requests;
 using SuitStore.Alterations.Core.Messages;
+using SuitStore.Alterations.Core.Models;
 
 namespace SuitStore.Alterations.Api.Endpoints.Alterations;
 
@@ -10,7 +11,7 @@ namespace SuitStore.Alterations.Api.Endpoints.Alterations;
 [ApiVersion("1")]
 [Route("v{version:apiVersion}/clients/{clientId}/alterations")]
 [Produces("application/json")]
-public class Create(IPublishEndpoint publishEndpoint) : ControllerBase
+public class Create(IRequestClient<CreateAlteration> requestClient) : ControllerBase
 {
     [HttpPost]
     public async Task<ActionResult> Execute(long clientId, [FromBody] CreateAlterationRequest alterationRequest, CancellationToken cancellationToken)
@@ -21,9 +22,11 @@ public class Create(IPublishEndpoint publishEndpoint) : ControllerBase
         if (alterationRequest.AlterationInstructions.AlterationInstruction.DistinctBy(a => a.Type).Count() != alterationRequest.AlterationInstructions.AlterationInstruction.Count())
             return BadRequest("Invalid alteration instructions.");
 
+        // Validate client and product exist
+        
         var request = new CreateAlteration(clientId, alterationRequest.ProductId, alterationRequest.AlterationInstructions);
 
-        await publishEndpoint.Publish(request, cancellationToken);
+        await requestClient.GetResponse<AlterationCreated>(request, cancellationToken);
 
         return Ok();
     }

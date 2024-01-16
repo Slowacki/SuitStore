@@ -1,5 +1,6 @@
 ﻿using MassTransit;
 using SuitStore.Alterations.Core.Messages;
+using SuitStore.Alterations.Core.Models;
 using SuitStore.Email.Messaging.Commands;
 using SuitStore.Email.Messaging.Models;
 using SuitStore.Payments.Messaging.Events;
@@ -13,6 +14,7 @@ public class AlterationStateMachine : MassTransitStateMachine<AlterationSaga>
         Initially(
             When(Create)
                 .Then(a => a.Saga.OrderId = StartNewOrder())
+                .Respond(new AlterationCreated())
                 .TransitionTo(AwaitingPayment));
         
         During(AwaitingPayment,
