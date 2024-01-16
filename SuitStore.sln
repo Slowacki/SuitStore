@@ -1,0 +1,50 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{787919FC-AF5D-43A7-A311-F10961CC4001}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{0502709C-CD29-48C5-ABBA-DD9FE44E9C38}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Payment", "Payment", "{2BB92019-7ED6-40AC-B6EA-64887145CE10}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SuitStore.Payments.Messaging", "src\SuitStore.Payments.Messaging\SuitStore.Payments.Messaging.csproj", "{3C4F3557-A40C-408A-A9F2-4C8601B85E5A}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Alterations", "Alterations", "{B2E3525F-A836-4916-99AE-4234C2DFE91D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SuitStore.Alterations.Core", "src\SuitStore.Alterations.Core\SuitStore.Alterations.Core.csproj", "{230135D9-9E5E-44D4-A37B-4D75096383E2}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SuitStore.Alterations.Api", "src\SuitStore.Alterations.Api\SuitStore.Alterations.Api.csproj", "{C471A3F2-21F7-40D1-96EA-D41EEF54B5E1}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SuitStore.Alterations.Data", "src\SuitStore.Alterations.Data\SuitStore.Alterations.Data.csproj", "{8047818F-25D8-4924-B2D9-4AEBC7FF9589}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{2BB92019-7ED6-40AC-B6EA-64887145CE10} = {787919FC-AF5D-43A7-A311-F10961CC4001}
+		{3C4F3557-A40C-408A-A9F2-4C8601B85E5A} = {2BB92019-7ED6-40AC-B6EA-64887145CE10}
+		{B2E3525F-A836-4916-99AE-4234C2DFE91D} = {787919FC-AF5D-43A7-A311-F10961CC4001}
+		{230135D9-9E5E-44D4-A37B-4D75096383E2} = {B2E3525F-A836-4916-99AE-4234C2DFE91D}
+		{C471A3F2-21F7-40D1-96EA-D41EEF54B5E1} = {B2E3525F-A836-4916-99AE-4234C2DFE91D}
+		{8047818F-25D8-4924-B2D9-4AEBC7FF9589} = {B2E3525F-A836-4916-99AE-4234C2DFE91D}
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{3C4F3557-A40C-408A-A9F2-4C8601B85E5A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3C4F3557-A40C-408A-A9F2-4C8601B85E5A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3C4F3557-A40C-408A-A9F2-4C8601B85E5A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3C4F3557-A40C-408A-A9F2-4C8601B85E5A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{230135D9-9E5E-44D4-A37B-4D75096383E2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{230135D9-9E5E-44D4-A37B-4D75096383E2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{230135D9-9E5E-44D4-A37B-4D75096383E2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{230135D9-9E5E-44D4-A37B-4D75096383E2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C471A3F2-21F7-40D1-96EA-D41EEF54B5E1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C471A3F2-21F7-40D1-96EA-D41EEF54B5E1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C471A3F2-21F7-40D1-96EA-D41EEF54B5E1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C471A3F2-21F7-40D1-96EA-D41EEF54B5E1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8047818F-25D8-4924-B2D9-4AEBC7FF9589}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8047818F-25D8-4924-B2D9-4AEBC7FF9589}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8047818F-25D8-4924-B2D9-4AEBC7FF9589}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8047818F-25D8-4924-B2D9-4AEBC7FF9589}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal

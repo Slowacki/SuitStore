@@ -1,0 +1,14 @@
+version: '3.8'
+
+services:
+  rabbitmq:
+    image: heidiks/rabbitmq-delayed-message-exchange:latest
+    ports:
+      - "15672:15672"
+      - "5672:5672"
+      - "5671:5671"
+
+  mongodb:
+    image: mongo:5
+    ports:
+      - "27017:27017"
